@@ -1,26 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+class App extends React.Component {
+  state = {
+    status: 'ALL',
+    classification: 'ALL'
+  }
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  statusChanged = (e) => {
+    this.setState({ status: e.target.value })
+  }
+  classificationChanged = (e) => {
+    this.setState({ classification: e.target.value })
+  }
+
+  render() {
+    const status = ['ALL', 'PROVISIONAL', 'CONFIRMED', 'WARNING',]
+    const classification = ['ALL', 'Public Event', 'Structures', 'Event',]
+    return (
+      <div className="App">
+        <header className="App-header">
+          <label>Status</label>
+          <select onChange={this.statusChanged} value={this.state.status}>
+            {status.map(i => (<option value={i}>{i}</option>))}
+          </select>
+          <label>Classification</label>
+          <select onChange={this.classificationChanged}
+            value={this.state.classification}>
+            {classification.map(i => (<option value={i}>{i}</option>))}
+          </select>
+        </header>
+      </div>
+    )
+  }
 }
-
 export default App;
